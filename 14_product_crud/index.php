@@ -26,7 +26,7 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <h1>Products CRUD</h1>
-    <a href='./create.php' type="button" class="btn btn-lg btn-success" >Create Product</a>
+    <a href='./create.php' type="button" class="btn btn-lg btn-success">Create Product</a>
     <table class="table">
 
 
@@ -47,10 +47,10 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <th scope="row"><?php echo $i + 1; ?></th>
                     <td>
-                    <img src="<?php
-                        echo  $product['image'];
-                        ?>" class="img-thumbnail" alt="product main image">
-                        
+                        <img src="<?php
+                                    echo  $product['image'];
+                                    ?>" class="img-thumbnail" alt="product main image">
+
                     </td>
                     <td>
 
@@ -71,8 +71,13 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
                         ?>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                        <a href='update.php' type="button" class="btn btn-outline-primary btn-sm">Edit</a>
+                        <form style="display:inline-block" action="delete.php" method='post'>
+                            <input type="hidden" name="id" value="<?php echo $product['id'] ?>">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                        </form>
+
+                        
                     </td>
                 </tr>
             <?php } ?>
