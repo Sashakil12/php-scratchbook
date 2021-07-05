@@ -4,3 +4,4 @@ vendor
 *.jpeg
 *.png
 *.webp
+/14_product_crud/images/*

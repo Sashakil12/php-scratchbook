@@ -26,6 +26,7 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <h1>Products CRUD</h1>
+    <a href='./create.php' type="button" class="btn btn-lg btn-success" >Create Product</a>
     <table class="table">
 
 
@@ -46,10 +47,10 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <th scope="row"><?php echo $i + 1; ?></th>
                     <td>
-
-                        <?php
+                    <img src="<?php
                         echo  $product['image'];
-                        ?>
+                        ?>" class="img-thumbnail" alt="product main image">
+                        
                     </td>
                     <td>
 
