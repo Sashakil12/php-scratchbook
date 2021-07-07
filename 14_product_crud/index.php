@@ -1,9 +1,19 @@
 <?php
 $pdo = new PDO('mysql:host=localhost;port=3306;dbname=products_crud', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$statement = $pdo->prepare('SELECT * FROM products ORDER BY create_date DESC');
+
+$search = $_GET['search']??'';
+
+if ($search) {
+    $statement = $pdo->prepare('SELECT * FROM products WHERE title LIKE :title ORDER BY create_date DESC' );
+    $statement->bindValue(':title', "%$search%");    
+} else {
+    $statement = $pdo->prepare('SELECT * FROM products ORDER BY create_date DESC');
+}
+
 $statement->execute();
 $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+
 
 // echo '<pre>';
 // echo var_dump($products);
@@ -28,6 +38,19 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
     <h1>Products CRUD</h1>
     <a href='./create.php' type="button" class="btn btn-lg btn-success">Create Product</a>
     <table class="table">
+        <form method="get" action='index.php'>
+            <div class="input-group mb-3">
+                <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Search" 
+                name="search"
+                value="<?php echo $search; ?>"
+                >
+                <button type="submit" class="input-group-text">Search</button>
+            </div>
+        </form>
+
 
 
         <thead>
@@ -77,7 +100,7 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
                         </form>
 
-                        
+
                     </td>
                 </tr>
             <?php } ?>

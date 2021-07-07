@@ -33,19 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!is_dir('images')) {
         mkdir('images');
     }
-    $imagePath = $product['image']??'';
+    $imagePath = $product['image'] ?? '';
     if (empty($errors)) {
 
         $image = $_FILES['image'] ?? null;
         //delete previous image
-        if ($product['image']) {
-            unlink($product['image']);
-        }
+
 
         // var_dump($imagePath);
 
 
         if ($image && $image['tmp_name']) {
+            if ($product['image']) {
+                unlink($product['image']);
+            }
             $imagePath = 'images/' . strval(rand(1, 1000000000)) . '/' . $image['name'];
             mkdir(dirname($imagePath));
 
